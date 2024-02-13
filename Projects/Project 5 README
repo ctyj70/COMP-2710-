@@ -1,0 +1,1 @@
+Implements a (synchronized) producer-consumer problem using pthreads. Producers generate data while the customers consume the data
