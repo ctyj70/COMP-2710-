@@ -7,10 +7,12 @@
 #include <pthread.h>
 #include <iostream>
 using namespace std;
+
 // This macro defines how many units of data will be generated in total,
 // For simplicity, we use an integer to represent one unit of data,
 // therefore, this project actuall will generate at most 10 integers.
 #define MAX 10 
+
 // We need the mutex to make sure that every time only one thread access the buffer
 // , could be the consumer thread or the producer thread.
 pthread_mutex_t the_mutex;
@@ -21,10 +23,19 @@ pthread_mutex_t the_mutex;
 // or not. The following two condition varibles "condc" and "condp" are
 // the traffic lights for consumer thread and producer thread.
 pthread_cond_t condc, condp;
+
 // To simplify the simulation, we use the integer varible as a buffer
-// The buffer stores one uint of data, that is, a integer.
+// The buffer stores one unit of data, that is, a integer.
 int buffer = 0;
 
+
+
+/**
+* Generates data (integers) and adds them to the shared buffer.
+* Uses the_mutex to control access to the buffer
+* Uses condition variables 'condp' and 'condc' to signal the availability of the buffer
+*     to the consumer.
+*/
 void* producer(void* ptr)
 {
     int i;
@@ -38,6 +49,7 @@ void* producer(void* ptr)
             // wait. Also, when you start to use the room, you need to lock the door so
             // other people knows someone is in the room. 
             pthread_mutex_lock(&the_mutex);
+        
         // Step 2, if the buffer is NOT empty, that means buffer hold some data
         // the thread need to wait for traffic light "condp" before output to the buffer,
             while (buffer != 0) pthread_cond_wait(&condp, &the_mutex);
@@ -63,6 +75,14 @@ void* producer(void* ptr)
     pthread_exit(0);
 
 }
+
+
+/**
+* Consumes data from the shared buffer
+* Uses mutex 'the_mutex' to control access to the buffer.
+* Uses condition variables 'condp' and 'condc' to wait for the producer
+*    to signal that the buffer has data
+*/
 void* consumer(void* ptr)
 {
     int i;
@@ -110,6 +130,16 @@ void* consumer(void* ptr)
     pthread_exit(0);
     // #7#END# DO NOT MODIFY THIS COMMENT LINE!
 }
+
+
+
+/**
+* Main Function.
+* Initializes the mutex and conditional variables.
+* Creates two threads (one for producer, one for consumer)
+* Joins the threads and waits for them to complete
+* Destroys the mutex and condition variables after the threads have finished.
+*/
 int main(int argc, char* argv[])
 {
     // change your the following id into your banner id
