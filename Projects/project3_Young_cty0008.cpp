@@ -30,7 +30,7 @@ int readfile(int inputArray[], ifstream& instream) {
     return index;
 }
 
-// Merges arrays.
+// Merges two subarrays with main array (Merge sort algorithm)
 void merge(int array[], int lo, int mu, int rho) {
 
     int i;
@@ -90,7 +90,7 @@ void merge(int array[], int lo, int mu, int rho) {
     delete[] Rum;
 }
 
-// Merges/Sorts arrays.
+// Recursively Merges & Sorts arrays.
 void mergeAndSort(int array[], int lo, int rho)
 {
     if (lo < rho) {
@@ -107,7 +107,7 @@ void mergeAndSort(int array[], int lo, int rho)
 
 }
 
-// Combines and Sorts Arrays for files.
+// Combines and Sorts Arrays for files, returning the size of the combined array.
 int combineAndSort(int arr_01[], int arr_01Size, int arr_02[], int arr_02Size, int arrayOut[]) {
 
     int arrayOut_Size = arr_01Size + arr_02Size;
@@ -125,7 +125,7 @@ int combineAndSort(int arr_01[], int arr_01Size, int arr_02[], int arr_02Size, i
     return arrayOut_Size;
 }
 
-//Writes/Overwrites files.
+//Writes/Overwrites files into a new output file.
 void newFile(int arrayOut[], int arrayOut_Size) {
     ofstream outstream;
     string outputFileName;
@@ -145,7 +145,14 @@ void newFile(int arrayOut[], int arrayOut_Size) {
 
 }
 
-// Main function of program
+/**
+*
+* Main function of program.
+* Initializes two arrays ('arr_01' and 'arr_02') to store numbers from the input files
+* Reads numbers from tthe first input file and displays them, also does the same for the 
+*     2nd input file.
+* Displays the sorted array and writes it to a new output file.
+*/
 int main() {
 
     int arr_01[Max];
