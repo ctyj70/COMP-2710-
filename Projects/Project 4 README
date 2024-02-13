@@ -1,0 +1,3 @@
+This C++ program is a trivia quiz game with the ability to add custom questions, ask questions,
+and keep track of the player's score. It also includes conditional choices for either
+running the trivia quiz or unit testing.
