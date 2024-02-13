@@ -16,7 +16,8 @@
 using namespace std;
 
 struct Trivia {
-    // Node Structure
+
+    // Node Structure (Linked List for storing trivia questions/answers w/ point value)
     // String pointValue for how many points a question is worth
 
     struct TriviaNode {
@@ -43,7 +44,7 @@ struct Trivia {
         }
     };
 
-    // Iterator
+    // Iterator for traversing linked list trivia nodes.
     struct TriviaIterator {
 
         TriviaNode* currentState;
@@ -70,6 +71,9 @@ struct Trivia {
     };
 
     // List Variables
+    // beginning & end - Pointers to first and last nodes in Linked List.
+    // size - Number of trivia question in the list.
+    // score - Players score during quiz
 
     TriviaNode* beginning;
     TriviaNode* end;
@@ -84,6 +88,10 @@ struct Trivia {
         size = 0;
         score = 0;
     }
+
+    /*
+    * add - Adds new trivia question to the linked list.
+    */
 
     bool add(string question_input, string answer_input, int value_input) {
 
@@ -102,6 +110,7 @@ struct Trivia {
         return true;
     }
 
+    // Returns an iterator to the linked list
     TriviaIterator iterator() {
 
         return TriviaIterator(beginning);
@@ -191,7 +200,7 @@ struct Trivia {
     }
 };
 
-// Conditional Compilation
+// Conditional Compilation - used to switch between the trivia quiz and unit testing sections.
 #define trivia_quiz
 
 //#define UNIT_TESTING
@@ -200,6 +209,8 @@ int main() {
 
     Trivia game = Trivia();
 
+// Prompts user to add trivia questions indefinitely until the choose not to.
+// It then asks the player/user all the questions in the list and displayss the total score.
 #ifdef trivia_quiz
 
     cout << "*** Welcome to CJ's trivia quiz game ***" << endl;
@@ -232,7 +243,13 @@ int main() {
 
 #endif
 
-
+/*
+* Contains unit test cases for various cases/scenarios
+* Asks no questions - Should give a warning message
+* Asking a question with a correct and incorrect answer
+* Asking all questions in the list
+* Asking more questions than available in the list
+*/
 #ifdef UNIT_TESTING
 
     cout << "*** This is a debugging version ***" << endl;
