@@ -1,0 +1,1 @@
+This C++ program is a simple file merging and sorting application. It takes two input files, reads the numbers from each file, merges and sorts them, and then writes the sorted numbers to a new output file.
